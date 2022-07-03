@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 
@@ -124,9 +124,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    STATIC_ROOT,
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 
 
 # Default primary key field type
