@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 
@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure--pehfpo%+gulq)&0i@^bf&ius%gz)!tu(1f(f-32weoq$z=@3=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['admin.iriscards.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -119,16 +119,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    STATIC_ROOT,
-]
-
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -137,3 +127,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files (Files uploaded by User)
 MEDIA_URL = '/media/'
 MEDIAFILES_DIRS = MEDIA_DIR
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+STATIC_URL = '/static/'
+#STATICFILES_DIRS = [
+#    STATIC_DIR,
+#]
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
