@@ -11,7 +11,7 @@ from django.http import Http404
 # Create your views here.
 
 class ContactViewSet(viewsets.ModelViewSet):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset=ContactModel.objects.all()
     serializer_class=ContactSerializer
 
