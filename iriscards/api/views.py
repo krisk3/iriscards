@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from app.models import Contact as ContactModel
 from api.serializers import ContactSerializer
+from api.serializers import LoginSerializer as LoginSerial
 from django.contrib.auth import authenticate, login, logout
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, serializers
 from rest_framework import status, mixins, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -21,7 +22,7 @@ class LoginView(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
-        serializer = serializers.LoginSerializer(data=self.request.data,
+        serializer = LoginSerial(data=self.request.data,
             context={ 'request': self.request })
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
