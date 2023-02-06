@@ -21,10 +21,10 @@ from rest_framework import routers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('create/', views.ContactCreateView.as_view()),
-    path('login/', views.LoginView.as_view()),
+    path('create/', views.ContactCreateView.as_view(), name="create"),
+    path('login/', views.LoginView.as_view(), name="login"),
     path('logout/', views.logout_view, name="logout"),
-    path('profile/<str:pk>', views.ProfileDetailView.as_view()),
+    path('profile/<str:pk>', views.ProfileDetailView.as_view(), name="profile"),
     path('contact/<str:pk>', views.create_contact, name="create_contact"),
 ]
 
