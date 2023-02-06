@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
+from django.contrib.auth import logout
 from app.models import Contact as ContactModel
 from api.serializers import ContactSerializer
 from api.serializers import LoginSerializer as LoginSerial
@@ -44,8 +45,11 @@ class LoginView(APIView):
         return Response(user.username, status=status.HTTP_202_ACCEPTED)
 
 
+def logout_view(request):
+    logout(request)
+
 #Generate VCF Contact File
-def CreateContact(request, pk):
+def create_contact(request, pk):
     response = HttpResponse(content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename=contact.vcf'
 

@@ -23,8 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('create/', views.ContactCreateView.as_view()),
     path('login/', views.LoginView.as_view()),
+    path('logout/', views.logout_view, name="logout"),
     path('profile/<str:pk>', views.ProfileDetailView.as_view()),
-    path('contact/<str:pk>', views.CreateContact, name="CreateContact"),
+    path('contact/<str:pk>', views.create_contact, name="create_contact"),
 ]
 
 
