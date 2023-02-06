@@ -29,7 +29,7 @@ class LoginView(APIView):
         login(request, user)
         return Response(None, status=status.HTTP_202_ACCEPTED)
 
-class ProfileDetailView(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class ProfileDetailView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
     queryset=ContactModel.objects.all()
     serializer_class=ContactSerializer
 
@@ -40,8 +40,15 @@ class ProfileDetailView(mixins.RetrieveModelMixin, generics.GenericAPIView):
     #         raise Http404
 
     def get(self, request, pk):
-        # contact = self.get_object(email)
-        # serializer = ContactSerializer(contact)
         return self.retrieve(request, pk)
+
+
+
+class ProfileEditView(mixins.UpdateModelMixin, generics.GenericAPIView):
+    queryset=ContactModel.objects.all()
+    serializer_class=ContactSerializer
+
+    def put(self, request, pk):
+        return self.update(request, pk)
 
 

@@ -10,7 +10,7 @@ class Contact(models.Model):
     phone = models.CharField(max_length=15)
     item_count = models.PositiveSmallIntegerField(default=2)
     profile_pic = models.ImageField(upload_to='profile/', null=True, blank=True, verbose_name="Profile Pic") #Add default value
-    contact_file = models.FileField(upload_to='profile/', blank=True, verbose_name="Contact File") #Add default value - Also check one-one field for Contact file
+    contact_file = models.FileField(upload_to='profile/', blank=True, null=True, verbose_name="Contact File") #Add default value - Also check one-one field for Contact file
 
     email2 = models.EmailField(max_length=100, verbose_name="Secondary Email", blank=True)
     phone2 = models.CharField(max_length=15, verbose_name="Secondary Phone", blank=True)
@@ -30,7 +30,7 @@ class Contact(models.Model):
     skypelink = models.URLField(max_length=250, verbose_name="Skype", blank=True)
     youtubelink = models.URLField(max_length=250, verbose_name="Youtube", blank=True)
 
-    brochure_file = models.FileField(upload_to='brochure/', blank=True, verbose_name="Brochure File")
+    brochure_file = models.FileField(upload_to='brochure/', blank=True, null=True, verbose_name="Brochure File")
 
     about = models.TextField(blank=True)
 

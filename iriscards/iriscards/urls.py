@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('login/', views.LoginView.as_view()),
     path('profile/<str:pk>', views.ProfileDetailView.as_view()),
+    path('edit/<str:pk>', views.ProfileEditView.as_view()),
 ]
 
 
