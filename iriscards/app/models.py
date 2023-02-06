@@ -10,9 +10,7 @@ class Contact(models.Model):
     company = models.CharField(max_length=100)
     job_title = models.CharField(max_length=50)
     phone = models.CharField(max_length=15)
-    #item_count = models.PositiveSmallIntegerField(default=2)
     profile_pic = models.ImageField(upload_to='media/profile_pic/', null=True, blank=True, verbose_name="Profile Pic")
-    contact_file = models.FileField(upload_to='media/contact/', blank=True, null=True, verbose_name="Contact File")
 
     email2 = models.EmailField(max_length=100, verbose_name="Secondary Email", blank=True)
     phone2 = models.CharField(max_length=15, verbose_name="Secondary Phone", blank=True)
