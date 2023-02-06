@@ -26,6 +26,7 @@ class ContactSerializer(serializers.ModelSerializer):
                 'zipcode',
                 'location',
 
+                'website',
                 'linkedinlink',
                 'twitterlink',
                 'facebooklink',

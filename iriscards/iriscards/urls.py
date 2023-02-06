@@ -18,16 +18,13 @@ from django.urls import path, include
 from api import views
 from rest_framework import routers
 
-router = routers.DefaultRouter()
-router.register('contact', views.ContactViewSet)
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('create/', views.ContactCreateView.as_view()),
     path('login/', views.LoginView.as_view()),
     path('profile/<str:pk>', views.ProfileDetailView.as_view()),
-    path('edit/<str:pk>', views.ProfileEditView.as_view()),
+    path('contact/<str:pk>', views.CreateContact, name="CreateContact"),
 ]
 
 
