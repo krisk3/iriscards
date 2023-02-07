@@ -13,7 +13,6 @@ class ContactSerializer(serializers.ModelSerializer):
                 'email',
                 'phone',
                 'profile_pic',
-                'contact_file',
 
                 'email2',
                 'phone2',

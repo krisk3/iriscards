@@ -10,6 +10,8 @@ from rest_framework import status, mixins, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes as pclass
 # Create your views here.
 
 class ContactCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
@@ -50,10 +52,15 @@ class LoginView(APIView):
         return Response(user.username, status=status.HTTP_202_ACCEPTED)
 
 
+@api_view(["GET"])
+@pclass([IsAuthenticated])
 def logout_view(request):
+
     logout(request)
+    return Response('User Logged out successfully')
 
 #Generate VCF Contact File
+@api_view(["GET"])
 def create_contact(request, pk):
     response = HttpResponse(content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename=contact.vcf'
