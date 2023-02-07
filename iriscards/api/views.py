@@ -21,16 +21,21 @@ class ContactCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
         return self.create(request)
 
 
-class ProfileDetailView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
+class ProfileDetailView(mixins.RetrieveModelMixin, generics.GenericAPIView):
     queryset=ContactModel.objects.all()
     serializer_class=ContactSerializer
 
     def get(self, request, pk):
         return self.retrieve(request, pk)
 
+
+class ProfileEditView(mixins.UpdateModelMixin, generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset=ContactModel.objects.all()
+    serializer_class=ContactSerializer
+
     def put(self, request, pk):
         return self.update(request, pk)
-
 
 class LoginView(APIView):
     # This view should be accessible also for unauthenticated users.

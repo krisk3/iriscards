@@ -25,6 +25,7 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name="login"),
     path('logout/', views.logout_view, name="logout"),
     path('profile/<str:pk>', views.ProfileDetailView.as_view(), name="profile"),
+    path('edit/<str:pk>', views.ProfileEditView.as_view(), name="edit"),
     path('contact/<str:pk>', views.create_contact, name="create_contact"),
 ]
 
