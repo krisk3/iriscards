@@ -2,16 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.contrib.auth import logout
 from app.models import Contact as ContactModel
-from api.serializers import ContactSerializer
+from api.serializers import ContactSerializer, UserSerializer
 from api.serializers import LoginSerializer as LoginSerial
 from django.contrib.auth import authenticate, login, logout
-from rest_framework import viewsets, permissions, serializers
+from rest_framework import permissions
 from rest_framework import status, mixins, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes as pclass
+#from . import current_user
 # Create your views here.
 
 class ContactCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
@@ -20,6 +21,9 @@ class ContactCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class=ContactSerializer
 
     def post(self, request):
+        #serializer = UserSerializer #(request.user)
+        #user_email = serializer.username
+        #ContactModel.objects.create(email="sample@gmail.com")
         return self.create(request)
 
 
@@ -31,10 +35,13 @@ class ProfileDetailView(mixins.RetrieveModelMixin, generics.GenericAPIView):
         return self.retrieve(request, pk)
 
 
-class ProfileEditView(mixins.UpdateModelMixin, generics.GenericAPIView):
+class ProfileEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     queryset=ContactModel.objects.all()
     serializer_class=ContactSerializer
+
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
 
     def put(self, request, pk):
         return self.update(request, pk)
@@ -44,21 +51,39 @@ class LoginView(APIView):
     # This view should be accessible also for unauthenticated users.
     permission_classes = (permissions.AllowAny,)
 
-    queryset=ContactModel.objects.all()
-    serializer_class=ContactSerializer
-
-
     def post(self, request, format=None):
         serializer = LoginSerial(data=self.request.data,
             context={ 'request': self.request })
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         login(request, user)
-        con = ContactModel.objects.get(email=user.username)
-        print(con.email)
-        retval = {"username":user.username,"email":con.email}
-        print(retval)
+        try:
+            con = ContactModel.objects.get(email=user.username)
+            mail = con.email
+        except:
+            mail=""
+        retval = {"username":user.username,"email":mail}
         return Response(retval, status=status.HTTP_202_ACCEPTED)
+
+
+
+    # permission_classes = (permissions.AllowAny,)
+
+    # queryset=ContactModel.objects.all()
+    # serializer_class=ContactSerializer
+
+
+    # def post(self, request, format=None):
+    #     serializer = LoginSerial(data=self.request.data,
+    #         context={ 'request': self.request })
+    #     serializer.is_valid(raise_exception=True)
+    #     user = serializer.validated_data['user']
+    #     login(request, user)
+    #     con = ContactModel.objects.get(email=user.username)
+    #     print(con.email)
+    #     retval = {"username":user.username,"email":con.email}
+    #     print(retval)
+    #     return Response(retval, status=status.HTTP_202_ACCEPTED)
 
 
 # def get_username(request):
@@ -70,6 +95,14 @@ class LoginView(APIView):
 #         url_email = self.kwargs['pk']
 #         return url_email
 
+
+@api_view(['GET'])
+def current_user(request):
+    user = request.user
+    return Response({
+        'username': user.username,
+        #'email': user.email,
+    })
 
 @api_view(["GET"])
 @pclass([IsAuthenticated])
