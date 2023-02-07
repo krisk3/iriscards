@@ -1,10 +1,11 @@
 from django.db import models
-# Create your models here.
+# import api.views
+# # Create your models here.
 
-
+# user_email = api.views.get_username()
 
 class Contact(models.Model):
-    email = models.EmailField(max_length=100, primary_key=True,)
+    email = models.EmailField(max_length=100, primary_key=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     company = models.CharField(max_length=100)

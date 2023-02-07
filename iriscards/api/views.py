@@ -39,9 +39,14 @@ class ProfileEditView(mixins.UpdateModelMixin, generics.GenericAPIView):
     def put(self, request, pk):
         return self.update(request, pk)
 
+
 class LoginView(APIView):
     # This view should be accessible also for unauthenticated users.
     permission_classes = (permissions.AllowAny,)
+
+    queryset=ContactModel.objects.all()
+    serializer_class=ContactSerializer
+
 
     def post(self, request, format=None):
         serializer = LoginSerial(data=self.request.data,
@@ -49,15 +54,29 @@ class LoginView(APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         login(request, user)
-        return Response(user.username, status=status.HTTP_202_ACCEPTED)
+        con = ContactModel.objects.get(email=user.username)
+        print(con.email)
+        retval = {"username":user.username,"email":con.email}
+        print(retval)
+        return Response(retval, status=status.HTTP_202_ACCEPTED)
+
+
+# def get_username(request):
+#         if request.user.is_authenticated():
+#             username_email = request.user.username
+#             return username_email
+
+# def get_url_email(self, request, *args, **kwargs):
+#         url_email = self.kwargs['pk']
+#         return url_email
 
 
 @api_view(["GET"])
 @pclass([IsAuthenticated])
 def logout_view(request):
-
     logout(request)
     return Response('User Logged out successfully')
+
 
 #Generate VCF Contact File
 @api_view(["GET"])
