@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from api import views
-from rest_framework import routers
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -27,6 +27,10 @@ urlpatterns = [
     path('profile/<str:pk>', views.ProfileDetailView.as_view(), name="profile"),
     path('edit/<str:pk>', views.ProfileEditView.as_view(), name="edit"),
     path('contact/<str:pk>', views.create_contact, name="create_contact"),
+    path('reset-password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
+    path('reset-password-sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path('reset-password-complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 ]
 
 

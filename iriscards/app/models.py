@@ -36,14 +36,10 @@ class Contact(models.Model):
 
     about = models.TextField(blank=True)
 
+
     def __str__(self):
         retval = f"{self.first_name} {self.last_name} - {self.company}"
         return retval
-
-
-
-
-
 
 
 

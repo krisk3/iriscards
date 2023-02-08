@@ -1,7 +1,13 @@
 from rest_framework import serializers
-from django.contrib.auth import authenticate
 from app.models import Contact
+
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
+
+
 
 
 
@@ -40,11 +46,6 @@ class ContactSerializer(serializers.ModelSerializer):
                 'about'
                 ]
 
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username']
 
 class LoginSerializer(serializers.Serializer):
     """
@@ -85,3 +86,5 @@ class LoginSerializer(serializers.Serializer):
         # It will be used in the view.
         attrs['user'] = user
         return attrs
+
+

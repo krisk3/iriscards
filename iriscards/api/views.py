@@ -1,18 +1,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.contrib.auth import logout
-from app.models import Contact as ContactModel
-from api.serializers import ContactSerializer, UserSerializer
-from api.serializers import LoginSerializer as LoginSerial
 from django.contrib.auth import authenticate, login, logout
-from rest_framework import permissions
-from rest_framework import status, mixins, generics
+
+
+from app.models import Contact as ContactModel
+from app.utils import Util
+
+from api.serializers import ContactSerializer
+from api.serializers import LoginSerializer as LoginSerial
+
+from rest_framework import permissions, status, mixins, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
-from rest_framework.decorators import permission_classes as pclass
-#from . import current_user
+from rest_framework.decorators import permission_classes as permclass
 # Create your views here.
 
 class ContactCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
@@ -21,9 +24,6 @@ class ContactCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class=ContactSerializer
 
     def post(self, request):
-        #serializer = UserSerializer #(request.user)
-        #user_email = serializer.username
-        #ContactModel.objects.create(email="sample@gmail.com")
         return self.create(request)
 
 
@@ -57,55 +57,19 @@ class LoginView(APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         login(request, user)
+
         try:
             con = ContactModel.objects.get(email=user.username)
             mail = con.email
         except:
             mail=""
+
         retval = {"username":user.username,"email":mail}
         return Response(retval, status=status.HTTP_202_ACCEPTED)
 
 
-
-    # permission_classes = (permissions.AllowAny,)
-
-    # queryset=ContactModel.objects.all()
-    # serializer_class=ContactSerializer
-
-
-    # def post(self, request, format=None):
-    #     serializer = LoginSerial(data=self.request.data,
-    #         context={ 'request': self.request })
-    #     serializer.is_valid(raise_exception=True)
-    #     user = serializer.validated_data['user']
-    #     login(request, user)
-    #     con = ContactModel.objects.get(email=user.username)
-    #     print(con.email)
-    #     retval = {"username":user.username,"email":con.email}
-    #     print(retval)
-    #     return Response(retval, status=status.HTTP_202_ACCEPTED)
-
-
-# def get_username(request):
-#         if request.user.is_authenticated():
-#             username_email = request.user.username
-#             return username_email
-
-# def get_url_email(self, request, *args, **kwargs):
-#         url_email = self.kwargs['pk']
-#         return url_email
-
-
-@api_view(['GET'])
-def current_user(request):
-    user = request.user
-    return Response({
-        'username': user.username,
-        #'email': user.email,
-    })
-
 @api_view(["GET"])
-@pclass([IsAuthenticated])
+@permclass([IsAuthenticated])
 def logout_view(request):
     logout(request)
     return Response('User Logged out successfully')
@@ -254,6 +218,38 @@ item1.X-ABLabel:'''
 
     response.writelines(line)
     return response
+
+
+# class RequestPasswordResetEmail(generics.GenericAPIView):
+#     serializer_class = ResetPasswordEmailRequestSerializer
+
+#     def post(self, request):
+#         data = {'request':request,'data':request.data}
+#         serializer = self.serializer_class(data=data)
+
+#         email = request.data['email']
+
+#         if ContactModel.objects.filter(email=email).exists():
+#             user = ContactModel.objects.get(email=email)
+#             byte_email = bytes(user.email, 'utf-8')
+#             uidb64 = urlsafe_base64_encode(byte_email)
+#             token = PasswordResetTokenGenerator().make_token(user)
+#             current_site = get_current_site(request=request).domain
+#             relativeLink = reverse('password-reset-confirm',kwargs={'uidb64':uidb64, 'token':token})
+#             absurl = 'http://'+current_site+ relativeLink
+#             email_body = 'Hello, \nUse the link below to reset your password\n' + absurl
+#             data = {'email_body': email_body, 'to_email': user.email,
+#                     'email_subject': 'Reset your password'}
+#             Util.send_emai(data)
+
+#         return Response({'success':'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
+
+
+# class PasswordTokenCheckAPI(generics.GenericAPIView):
+#     def get(self, request, uidb64, token):
+#         pass
+
+
 
 
 
