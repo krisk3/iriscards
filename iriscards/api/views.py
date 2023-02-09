@@ -220,37 +220,5 @@ item1.X-ABLabel:'''
     return response
 
 
-# class RequestPasswordResetEmail(generics.GenericAPIView):
-#     serializer_class = ResetPasswordEmailRequestSerializer
-
-#     def post(self, request):
-#         data = {'request':request,'data':request.data}
-#         serializer = self.serializer_class(data=data)
-
-#         email = request.data['email']
-
-#         if ContactModel.objects.filter(email=email).exists():
-#             user = ContactModel.objects.get(email=email)
-#             byte_email = bytes(user.email, 'utf-8')
-#             uidb64 = urlsafe_base64_encode(byte_email)
-#             token = PasswordResetTokenGenerator().make_token(user)
-#             current_site = get_current_site(request=request).domain
-#             relativeLink = reverse('password-reset-confirm',kwargs={'uidb64':uidb64, 'token':token})
-#             absurl = 'http://'+current_site+ relativeLink
-#             email_body = 'Hello, \nUse the link below to reset your password\n' + absurl
-#             data = {'email_body': email_body, 'to_email': user.email,
-#                     'email_subject': 'Reset your password'}
-#             Util.send_emai(data)
-
-#         return Response({'success':'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
-
-
-# class PasswordTokenCheckAPI(generics.GenericAPIView):
-#     def get(self, request, uidb64, token):
-#         pass
-
-
-
-
 
 
