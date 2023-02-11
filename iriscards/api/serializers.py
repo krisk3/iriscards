@@ -7,10 +7,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 
-
-
-
-
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
@@ -45,7 +41,23 @@ class ContactSerializer(serializers.ModelSerializer):
 
                 'about'
                 ]
+        
 
+class ProfilePicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['profile_pic']
+
+
+class BrochureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['brochure_file']
+
+class ProfileAndBrochureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['profile_pic', 'brochure_file']
 
 class LoginSerializer(serializers.Serializer):
     """

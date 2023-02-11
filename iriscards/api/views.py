@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from app.models import Contact as ContactModel
 from app.utils import Util
 
-from api.serializers import ContactSerializer
+from api.serializers import ContactSerializer, ProfilePicSerializer, BrochureSerializer, ProfileAndBrochureSerializer
 from api.serializers import LoginSerializer as LoginSerial
 
 from rest_framework import permissions, status, mixins, generics
@@ -46,6 +46,41 @@ class ProfileEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generi
     def put(self, request, pk):
         return self.update(request, pk)
 
+
+class ProfilePicEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset=ContactModel.objects.all()
+    serializer_class=ProfilePicSerializer
+
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
+
+    def put(self, request, pk):
+        return self.update(request, pk)
+    
+
+class BrouchureEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset=ContactModel.objects.all()
+    serializer_class=BrochureSerializer
+
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
+
+    def put(self, request, pk):
+        return self.update(request, pk)
+    
+
+class ProfilePicAndBrochureEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset=ContactModel.objects.all()
+    serializer_class=ProfileAndBrochureSerializer
+
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
+
+    def put(self, request, pk):
+        return self.update(request, pk)
 
 class LoginView(APIView):
     # This view should be accessible also for unauthenticated users.
