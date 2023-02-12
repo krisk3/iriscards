@@ -32,6 +32,7 @@ urlpatterns = [
     path('editbrochure/<str:pk>', views.BrouchureEditView.as_view(), name="edit_brochure"),
     path('editprofilenbrochure/<str:pk>', views.ProfilePicAndBrochureEditView.as_view(), name="edit_profile_and_brochure"),
     path('contact/<str:pk>', views.create_contact, name="create_contact"),
+    path('download-brochure/<str:pk>', views.BrochureDownloadView.as_view(), name="create_contact"),
     path('reset-password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
     path('reset-password-sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
