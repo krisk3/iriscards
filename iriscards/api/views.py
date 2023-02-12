@@ -46,10 +46,8 @@ class BrochureDownloadView(mixins.RetrieveModelMixin, generics.GenericAPIView):
     def get(self, request, pk):        
         guy = ContactModel.objects.get(email=pk)
         file_name_url = guy.brochure_file.path
-
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         filepath = str(file_name_url)        
-        print(filepath)
         path = open(filepath, 'rb')
         mime_type, _ = mimetypes.guess_type(filepath)
         response = HttpResponse(path, content_type=mime_type)

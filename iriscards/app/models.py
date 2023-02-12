@@ -32,7 +32,7 @@ class Contact(models.Model):
     skypelink = models.URLField(max_length=250, verbose_name="Skype", blank=True)
     youtubelink = models.URLField(max_length=250, verbose_name="Youtube", blank=True)
 
-    brochure_file = models.FileField(upload_to='', blank=True, null=True, verbose_name="Brochure File")
+    brochure_file = models.FileField(upload_to='brochure/', blank=True, null=True, verbose_name="Brochure File")
 
     about = models.TextField(blank=True)
 
