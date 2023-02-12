@@ -214,12 +214,12 @@ item1.X-ABLabel:'''
 
     if obj.email2:
         search_text = '''EMAIL;TYPE=INTERNET:'''
-        replace_text = f'''EMAIL;TYPE=INTERNET:TYPE=OTHER:{obj.email2}'''
+        replace_text = f'''EMAIL;TYPE=INTERNET:{obj.email2}'''
         line = line.replace(search_text,replace_text)
 
     if obj.phone2:
         search_text = '''TEL:'''
-        replace_text = f'''TEL:TYPE=OTHER:{obj.phone2}'''
+        replace_text = f'''TEL;TYPE=WORK:{obj.phone2}'''
         line = line.replace(search_text,replace_text)
 
     if obj.location:
