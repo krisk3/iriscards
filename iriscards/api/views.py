@@ -192,16 +192,16 @@ N:;{obj.first_name};{obj.last_name};;'''
 
     if obj.company:
         search_text = '''item2.ORG:*company*
-    item2.X-ABLabel:'''
+item2.X-ABLabel:'''
         replace_text = f'''item2.ORG:{obj.company}
-    item2.X-ABLabel:'''
+item2.X-ABLabel:'''
     line = line.replace(search_text,replace_text)
 
     if obj.job_title:
         search_text = '''item3.TITLE:*job_title*
-    item3.X-ABLabel:'''
+item3.X-ABLabel:'''
         replace_text = f'''item3.TITLE:{obj.job_title}
-    item3.X-ABLabel:'''
+item3.X-ABLabel:'''
     line = line.replace(search_text,replace_text)
 
     if obj.address_line1 and obj.address_line2 and obj.city:
@@ -209,7 +209,7 @@ N:;{obj.first_name};{obj.last_name};;'''
         search_text = '''item1.ADR:;*address_line2*;*address_line1*;*city*;*state*;*zipcode*;*country*;*address_line1*\n*address_line2*\n*city*\, *state* *zipcode*\n*country*
 item1.X-ABLabel:'''
         replace_text = f'''item1.ADR:;{obj.address_line2};{obj.address_line1};{obj.city};{obj.state};{obj.zipcode};{obj.country};{obj.address_line1}\n{obj.address_line2}\n{obj.city}\, {obj.state} {obj.zipcode}\n{obj.country}
-    item1.X-ABLabel:'''
+item1.X-ABLabel:'''
     line = line.replace(search_text,replace_text)
 
     if obj.email2:
@@ -224,51 +224,51 @@ item1.X-ABLabel:'''
 
     if obj.location:
         search_text = '''item4.URL:
-    item4.X-ABLabel:Location'''
+item4.X-ABLabel:Location'''
         replace_text = f'''item4.URL:{obj.location}
-    item4.X-ABLabel:Location'''
+item4.X-ABLabel:Location'''
     line = line.replace(search_text,replace_text)
 
     if obj.website:
         search_text = '''item11.URL:
-    item11.X-ABLabel:Website'''
+item11.X-ABLabel:Website'''
         replace_text = f'''item11.URL:{obj.website}
-    item11.X-ABLabel:Website'''
+item11.X-ABLabel:Website'''
     line = line.replace(search_text,replace_text)
 
     if obj.linkedinlink:
         search_text = '''item5.URL:
-    item5.X-ABLabel:Linkedin'''
+item5.X-ABLabel:Linkedin'''
         replace_text = f'''item5.URL:{obj.linkedinlink}
-    item5.X-ABLabel:Linkedin'''
+item5.X-ABLabel:Linkedin'''
     line = line.replace(search_text,replace_text)
 
     if obj.twitterlink:
         search_text = '''item6.URL:
-    item6.X-ABLabel:Twitter'''
+item6.X-ABLabel:Twitter'''
         replace_text = f'''item6.URL:{obj.twitterlink}
-    item6.X-ABLabel:Twitter'''
+item6.X-ABLabel:Twitter'''
     line = line.replace(search_text,replace_text)
 
     if obj.facebooklink:
         search_text = '''item7.URL:
-    item7.X-ABLabel:Facebook'''
+item7.X-ABLabel:Facebook'''
         replace_text = f'''item7.URL:{obj.facebooklink}
-    item7.X-ABLabel:Facebook'''
+item7.X-ABLabel:Facebook'''
     line = line.replace(search_text,replace_text)
 
     if obj.skypelink:
         search_text = '''item9.URL:
-    item9.X-ABLabel:Skype'''
+item9.X-ABLabel:Skype'''
         replace_text = f'''item9.URL:{obj.skypelink}
-    item9.X-ABLabel:Skype'''
+item9.X-ABLabel:Skype'''
     line = line.replace(search_text,replace_text)
 
     if obj.youtubelink:
         search_text = '''item10.URL:
-    item10.X-ABLabel:Youtube'''
+item10.X-ABLabel:Youtube'''
         replace_text = f'''item10.URL:{obj.youtubelink}
-    item10.X-ABLabel:Youtube'''
+item10.X-ABLabel:Youtube'''
     line = line.replace(search_text,replace_text)
 
     response.writelines(line)
