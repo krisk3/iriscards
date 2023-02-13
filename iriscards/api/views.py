@@ -56,7 +56,7 @@ class BrochureDownloadView(mixins.RetrieveModelMixin, generics.GenericAPIView):
 
     
 class ProfileEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     queryset=ContactModel.objects.all()
     serializer_class=ContactSerializer
 
@@ -68,7 +68,7 @@ class ProfileEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generi
 
 
 class ProfilePicEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     queryset=ContactModel.objects.all()
     serializer_class=ProfilePicSerializer
 
@@ -80,7 +80,7 @@ class ProfilePicEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, gen
     
 
 class BrouchureEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     queryset=ContactModel.objects.all()
     serializer_class=BrochureSerializer
 
