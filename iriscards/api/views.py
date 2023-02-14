@@ -43,18 +43,18 @@ class BrochureDownloadView(mixins.RetrieveModelMixin, generics.GenericAPIView):
     queryset=ContactModel.objects.all()
     serializer_class=ContactSerializer
 
-    def get(self, request, pk):        
+    def get(self, request, pk):
         guy = ContactModel.objects.get(email=pk)
         file_name_url = guy.brochure_file.path
         #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        filepath = str(file_name_url)        
+        filepath = str(file_name_url)
         path = open(filepath, 'rb')
         mime_type, _ = mimetypes.guess_type(filepath)
         response = HttpResponse(path, content_type=mime_type)
-        response['Content-Disposition'] = "attachment; filename=brochure.pdf" 
+        response['Content-Disposition'] = "attachment; filename=brochure.pdf"
         return response
 
-    
+
 class ProfileEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
     #permission_classes = [IsAuthenticated]
     queryset=ContactModel.objects.all()
@@ -77,7 +77,7 @@ class ProfilePicEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, gen
 
     def put(self, request, pk):
         return self.update(request, pk)
-    
+
 
 class BrouchureEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
     #permission_classes = [IsAuthenticated]
@@ -89,7 +89,7 @@ class BrouchureEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, gene
 
     def put(self, request, pk):
         return self.update(request, pk)
-    
+
 
 class ProfilePicAndBrochureEditView(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
@@ -144,11 +144,11 @@ EMAIL;TYPE=INTERNET;TYPE=WORK:*email*
 EMAIL;TYPE=INTERNET:
 TEL;TYPE=WORK:*phone*
 TEL:
-item1.ADR:;*address_line2*;*address_line1*;*city*;*state*;*zipcode*;*country*;*address_line1*\n*address_line2*\n*city*\, *state* *zipcode*\n*country*
+item1.ADR:;
 item1.X-ABLabel:
-item2.ORG:*company*
+item2.ORG:
 item2.X-ABLabel:
-item3.TITLE:*job_title*
+item3.TITLE:
 item3.X-ABLabel:
 item4.URL:
 item4.X-ABLabel:Location
@@ -191,22 +191,22 @@ N:;{obj.first_name};{obj.last_name};;'''
         line = line.replace(search_text,replace_text)
 
     if obj.company:
-        search_text = '''item2.ORG:*company*
+        search_text = '''item2.ORG:
 item2.X-ABLabel:'''
         replace_text = f'''item2.ORG:{obj.company}
 item2.X-ABLabel:'''
     line = line.replace(search_text,replace_text)
 
     if obj.job_title:
-        search_text = '''item3.TITLE:*job_title*
+        search_text = '''item3.TITLE:
 item3.X-ABLabel:'''
         replace_text = f'''item3.TITLE:{obj.job_title}
 item3.X-ABLabel:'''
     line = line.replace(search_text,replace_text)
 
-    if obj.address_line1 and obj.address_line2 and obj.city:
+    if obj.address_line1 or obj.address_line2 or obj.city or obj.state or obj.zipcode or obj.country:
         print("Inside Address")
-        search_text = '''item1.ADR:;*address_line2*;*address_line1*;*city*;*state*;*zipcode*;*country*;*address_line1*\n*address_line2*\n*city*\, *state* *zipcode*\n*country*
+        search_text = '''item1.ADR:;
 item1.X-ABLabel:'''
         replace_text = f'''item1.ADR:;{obj.address_line2};{obj.address_line1};{obj.city};{obj.state};{obj.zipcode};{obj.country};{obj.address_line1}\n{obj.address_line2}\n{obj.city}\, {obj.state} {obj.zipcode}\n{obj.country}
 item1.X-ABLabel:'''
