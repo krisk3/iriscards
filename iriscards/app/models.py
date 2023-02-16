@@ -22,7 +22,7 @@ class Contact(models.Model):
     state = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50, blank=True)
     zipcode = models.CharField(max_length=6, blank=True)
-    location = models.URLField(max_length=200, blank=True, verbose_name="Location")
+    location = models.URLField(max_length=250, blank=True, verbose_name="Location")
 
     website = models.URLField(max_length=250, verbose_name="Website", blank=True )
     linkedinlink = models.URLField(max_length=250, verbose_name="Linkedin", blank=True)
@@ -34,7 +34,6 @@ class Contact(models.Model):
 
     brochure_file = models.FileField(upload_to='brochure/', blank=True, null=True, verbose_name="Brochure File")
 
-    about = models.TextField(blank=True)
 
 
     def __str__(self):

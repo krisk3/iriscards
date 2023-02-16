@@ -38,10 +38,8 @@ class ContactSerializer(serializers.ModelSerializer):
                 'youtubelink',
 
                 'brochure_file',
-
-                'about'
                 ]
-        
+
 
 class ProfilePicSerializer(serializers.ModelSerializer):
     class Meta:
