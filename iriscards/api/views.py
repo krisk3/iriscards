@@ -173,7 +173,7 @@ END:VCARD'''
     filename = 'contact.vcf'
     obj = ContactModel.objects.get(email=pk)
 
-    if obj.first_name and obj.last_name:
+    if obj.first_name:
         search_text = '''FN:*first_name* *last_name*
 N:;*first_name*;*last_name*;;'''
         replace_text = f'''FN:{obj.first_name} {obj.last_name}

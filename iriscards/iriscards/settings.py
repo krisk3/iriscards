@@ -140,8 +140,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #SMTP Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp-relay.sendinblue.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'iriscards20@gmail.com'
-EMAIL_HOST_PASSWORD = 'ezjiuhnuarzkpmlt'
+EMAIL_HOST_USER = 'iriscards22@gmail.com'
+EMAIL_HOST_PASSWORD = 'ytpaTr0CjKdOhkQ9'
+SERVER_EMAIL = 'iriscards20@gmail.com'
+ADMINS = (
+  ('Iris Cards', 'iriscards20@gmail.com')
+)
+
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'iriscards20@gmail.com'
+# EMAIL_HOST_PASSWORD = 'ezjiuhnuarzkpmlt'
+# SERVER_EMAIL = 'iriscards20@gmail.com'
+# ADMINS = (
+#   ('Iris Cards', 'iriscards20@gmail.com')
+# )
