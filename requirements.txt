@@ -5,3 +5,4 @@ mysql
 mysqlclient=2.1
 pillow=9.4 
 django-cleanup==6.0
+python-decouple==3.7
