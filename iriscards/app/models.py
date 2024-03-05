@@ -1,17 +1,21 @@
 from django.db import models
-# import api.views
+from user.models import User
 # # Create your models here.
 
-# user_email = api.views.get_username()
-
 class Contact(models.Model):
-    email = models.EmailField(max_length=100, primary_key=True)
-    first_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    email = models.EmailField(max_length=100, blank=True)
+    first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     company = models.CharField(max_length=100, blank=True)
     job_title = models.CharField(max_length=50, blank=True)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, blank=True)
     profile_pic = models.ImageField(upload_to='profile_pic/', null=True, blank=True, verbose_name="Profile Pic")
+
+    url = models.URLField(max_length=255, blank=True, verbose_name="URL")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     email2 = models.EmailField(max_length=100, verbose_name="Secondary Email", blank=True)
     phone2 = models.CharField(max_length=15, verbose_name="Secondary Phone", blank=True)
@@ -35,10 +39,11 @@ class Contact(models.Model):
     brochure_file = models.FileField(upload_to='brochure/', blank=True, null=True, verbose_name="Brochure File")
 
 
-
     def __str__(self):
-        retval = f"{self.first_name} {self.last_name} - {self.company}"
+        if not (self.first_name or self.last_name or self.company):
+            retval = f"{self.email}"
+        elif not (self.company):
+            retval = f"{self.email} - {self.first_name} {self.last_name}"
+        else:
+            retval = f"{self.email} - {self.first_name} {self.last_name} - {self.company}"
         return retval
-
-
-
